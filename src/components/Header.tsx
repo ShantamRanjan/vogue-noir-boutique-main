@@ -43,11 +43,11 @@ interface HeaderProps {
   onMoveToCart: (id: number) => void;
 }
 
-const Header = ({ 
-  currentPage, 
-  cartCount, 
-  wishlistCount, 
-  cartItems, 
+const Header = ({
+  currentPage,
+  cartCount,
+  wishlistCount,
+  cartItems,
   wishlistItems,
   onUpdateCartQuantity,
   onRemoveCartItem,
@@ -69,39 +69,39 @@ const Header = ({
           <Link to="/" className="text-2xl font-bold text-black">
             YUTH
           </Link>
-          
+
           <nav className="hidden md:flex space-x-8">
-            <Link 
-              to="/men" 
+            <Link
+              to="/men"
               className={`${currentPage === 'men' ? 'text-black border-b-2 border-black' : 'text-gray-900 hover:text-gray-600'} font-medium`}
             >
               MEN
             </Link>
-            <Link 
-              to="/women" 
+            <Link
+              to="/women"
               className={`${currentPage === 'women' ? 'text-black border-b-2 border-black' : 'text-gray-900 hover:text-gray-600'} font-medium`}
             >
               WOMEN
             </Link>
           </nav>
-          
+
           <div className="flex items-center space-x-4">
             <SearchBar />
-            
+
             <WishlistSidebar
               wishlistCount={wishlistCount}
               wishlistItems={wishlistItems}
               onRemoveItem={onRemoveWishlistItem}
               onMoveToCart={onMoveToCart}
             />
-            
+
             <CartSidebar
               cartCount={cartCount}
               cartItems={cartItems}
               onUpdateQuantity={onUpdateCartQuantity}
               onRemoveItem={onRemoveCartItem}
             />
-            
+
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -120,12 +120,23 @@ const Header = ({
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Link to="/login">
-                <Button variant="ghost" size="icon">
-                  <User className="h-5 w-5" />
-                </Button>
-              </Link>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <User className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => navigate('/login')}>
+                    Login as User
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/admin-login')}>
+                    Login as Admin
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             )}
+
           </div>
         </div>
       </div>

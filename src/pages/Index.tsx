@@ -93,82 +93,26 @@ const Index = () => {
           <div className="absolute inset-0 bg-black bg-opacity-30"></div>
         </div>
         <div className="relative z-10 text-center text-white">
-          <h1 className="text-5xl md:text-7xl font-bold mb-4">YUTH</h1>
+          <div className="mb-4">
+            <img 
+              src="/public/logo8.png" 
+              alt="YUTH Logo" 
+              className="h-20 md:h-32 lg:h-40 w-auto mx-auto object-contain filter drop-shadow-lg" 
+            />
+          </div>
           <p className="text-xl md:text-2xl mb-8">Redefining Fashion</p>
           <div className="space-x-4">
             <Link to="/men">
               <Button className="bg-white text-black hover:bg-gray-200 px-8 py-3">
-                SHOP MEN
+                MEN
               </Button>
             </Link>
             <Link to="/women">
               <Button className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-black px-8 py-3">
-                SHOP WOMEN
+                WOMEN
               </Button>
             </Link>
           </div>
-        </div>
-      </section>
-
-      {/* Featured Products */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">FEATURED</h2>
-          {productsLoading ? (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className="animate-pulse">
-                  <div className="bg-gray-300 h-80 w-full mb-4"></div>
-                  <div className="bg-gray-300 h-4 w-3/4 mb-2"></div>
-                  <div className="bg-gray-300 h-4 w-1/2"></div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {featuredProducts?.slice(0, 4).map((product) => (
-                <Card key={product.id} className="group cursor-pointer border-none shadow-none">
-                  <CardContent className="p-0">
-                    <div className="relative overflow-hidden">
-                      <img
-                        src={product.image_url || "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&h=500&fit=crop"}
-                        alt={product.name}
-                        className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute top-4 right-4 space-y-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Button
-                          size="icon"
-                          variant="secondary"
-                          className="bg-white hover:bg-gray-100"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleToggleWishlist(product.id);
-                          }}
-                        >
-                          <Heart className={`h-4 w-4 ${isInWishlist(product.id) ? 'fill-current text-red-500' : ''}`} />
-                        </Button>
-                        <Button
-                          size="icon"
-                          variant="secondary"
-                          className="bg-white hover:bg-gray-100"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleAddToCart(product.id);
-                          }}
-                        >
-                          <ShoppingCart className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="pt-4">
-                      <h3 className="font-medium text-gray-900">{product.name}</h3>
-                      <p className="text-gray-600">₹{parseFloat(product.price.toString()).toLocaleString()}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
         </div>
       </section>
 
@@ -231,7 +175,7 @@ const Index = () => {
               <h4 className="font-semibold mb-4">CUSTOMER CARE</h4>
               <ul className="space-y-2 text-gray-400">
                 <li><a href="#" className="hover:text-white">Contact Us</a></li>
-                <li><a href="#" className="hover:text-white">Shipping Info</a></li>
+                <li><a href="/OrderInfo" className="hover:text-white">Shipping Info</a></li>
                 <li><a href="#" className="hover:text-white">Returns</a></li>
                 <li><a href="#" className="hover:text-white">Size Guide</a></li>
               </ul>
@@ -241,8 +185,9 @@ const Index = () => {
               <ul className="space-y-2 text-gray-400">
                 <li><a href="#" className="hover:text-white">Instagram</a></li>
                 <li><a href="#" className="hover:text-white">Facebook</a></li>
-                <li><a href="#" className="hover:text-white">Twitter</a></li>
-                <li><a href="#" className="hover:text-white">Newsletter</a></li>
+                <li><a href="#" className="hover:text-white">X</a></li>
+                <li><a href="#" className="hover:text-white">Linked In</a></li>
+                <li><a href="#" className="hover:text-white">YouTube</a></li>
               </ul>
             </div>
           </div>
