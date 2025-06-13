@@ -1,61 +1,54 @@
-import React, { useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
+import React from 'react';
+import { CheckCircle, Clock } from 'lucide-react';
 
-interface OrderStep {
-    id: number;
-    step: string;
-    timestamp: string;
-    sequence: number;
-}
+type OrderStep = {
+    label: string;
+    completed: boolean;
+};
 
-interface OrderTrackingProps {
-    orderId: string;
-}
+const steps: OrderStep[] = [
+    { label: 'Order Placed', completed: true },
+    { label: 'Order Confirmed', completed: true },
+    { label: 'Order Dispatched', completed: true },
+    { label: 'Out for Delivery', completed: false },
+    { label: 'Delivered', completed: false },
+];
 
-const OrderTrackingPage: React.FC<OrderTrackingProps> = ({ orderId }) => {
-    const [steps, setSteps] = useState<OrderStep[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchOrderStatus = async () => {
-            setLoading(true);
-            const { data, error } = await supabase
-                .from('order_status')
-                .select('*')
-                .eq('order_id', orderId)
-                .order('sequence', { ascending: true });
-
-            if (error) {
-                console.error('Error fetching order status:', error.message);
-            } else {
-                setSteps(data as OrderStep[]);
-            }
-            setLoading(false);
-        };
-
-        fetchOrderStatus();
-    }, [orderId]);
-
+const OrderInfo: React.FC = () => {
     return (
-        <div className="max-w-2xl mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-6">Order Tracking</h1>
-            {loading ? (
-                <p className="text-gray-500">Loading order steps...</p>
-            ) : (
-                <ol className="relative border-l border-gray-300">
-                    {steps.map((step, idx) => (
-                        <li key={step.id} className="mb-6 ml-4">
-                            <div className="absolute w-3 h-3 bg-blue-600 rounded-full -left-1.5 border border-white"></div>
-                            <time className="text-sm text-gray-500">
-                                {new Date(step.timestamp).toLocaleString()}
-                            </time>
-                            <h3 className="text-lg font-semibold text-gray-900">{step.step}</h3>
-                        </li>
+        <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-12">
+            <div className="max-w-3xl w-full bg-white shadow-lg rounded-xl p-6">
+                <h2 className="text-2xl font-bold mb-6 text-center">Track Your Order</h2>
+
+                <div className="flex flex-col space-y-6">
+                    {steps.map((step, index) => (
+                        <div key={index} className="flex items-center space-x-4">
+                            {step.completed ? (
+                                <CheckCircle className="text-green-500 w-6 h-6" />
+                            ) : (
+                                <Clock className="text-gray-400 w-6 h-6" />
+                            )}
+
+                            <div className="flex flex-col">
+                                <span className={`font-medium ${step.completed ? 'text-green-600' : 'text-gray-600'}`}>
+                                    {step.label}
+                                </span>
+                                <span className="text-sm text-gray-400">
+                                    {step.completed ? 'Completed' : 'Pending'}
+                                </span>
+                            </div>
+                        </div>
                     ))}
-                </ol>
-            )}
+                </div>
+
+                <div className="mt-8 text-center">
+                    <button className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800">
+                        View Order Details
+                    </button>
+                </div>
+            </div>
         </div>
     );
 };
 
-export default OrderTrackingPage;
+export default OrderInfo;
