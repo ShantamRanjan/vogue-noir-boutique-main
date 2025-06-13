@@ -10,6 +10,7 @@ import Index from "./pages/Index";
 import Men from "./pages/Men";
 import Women from "./pages/Women";
 import Product from "./pages/Product";
+import OrderInfo from "./pages/OrderInfo";
 import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import AdminLogin from '@/pages/AdminLogin';
